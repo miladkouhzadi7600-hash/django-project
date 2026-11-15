@@ -1,5 +1,5 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def home(request):
-    return HttpResponse('سلام! به صفحه اصلی پروژه جنگو خوش آمدید.')
+    return render(request, 'main/home.html')
