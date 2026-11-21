@@ -16,6 +16,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success(request, 'ثبت نام شما با موفقیت انجام شد. خوش آمدید!')
             return redirect('home')
     else:
         form = UserCreationForm()
@@ -28,6 +29,7 @@ def login_view(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
+            messages.success(request, 'با موفقیت وارد حساب کاربری شدید.')
             return redirect('home')
         messages.error(request, 'نام کاربری یا رمز عبور اشتباه است.')
     else:
@@ -38,6 +40,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
+    messages.success(request, 'با موفقیت از حساب کاربری خارج شدید.')
     return redirect('home')
 
 
