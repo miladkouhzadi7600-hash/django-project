@@ -1,0 +1,53 @@
+from django.contrib.auth.models import User
+from django.test import TestCase
+from django.urls import reverse
+
+
+class UserAccountTests(TestCase):
+    def test_home_page_loads(self):
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_can_register(self):
+        response = self.client.post(reverse('register'), {
+            'username': 'testuser',
+            'password1': 'StrongPass123!xyz',
+            'password2': 'StrongPass123!xyz',
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(User.objects.filter(username='testuser').exists())
+
+    def test_user_can_log_in(self):
+        User.objects.create_user(username='testuser', password='StrongPass123!xyz')
+        response = self.client.post(reverse('login'), {
+            'username': 'testuser',
+            'password': 'StrongPass123!xyz',
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('home'))
+
+    def test_profile_requires_login(self):
+        response = self.client.get(reverse('profile'))
+        self.assertRedirects(
+            response,
+            f"{reverse('login')}?next={reverse('profile')}"
+        )
+
+    def test_user_can_update_profile(self):
+        user = User.objects.create_user(
+            username='testuser',
+            password='StrongPass123!xyz'
+        )
+        self.client.login(username='testuser', password='StrongPass123!xyz')
+
+        response = self.client.post(reverse('profile'), {
+            'first_name': 'Ali',
+            'last_name': 'Ahmadi',
+            'email': 'ali@example.com',
+        })
+
+        self.assertRedirects(response, reverse('profile'))
+        user.refresh_from_db()
+        self.assertEqual(user.first_name, 'Ali')
+        self.assertEqual(user.last_name, 'Ahmadi')
+        self.assertEqual(user.email, 'ali@example.com')
