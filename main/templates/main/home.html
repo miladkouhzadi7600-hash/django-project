@@ -1,33 +1,22 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحه اصلی</title>
-</head>
-<body>
-    <h1>به سایت من خوش آمدید</h1>
+{% extends 'main/base.html' %}
 
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+{% block title %}صفحه اصلی | وب‌سایت من{% endblock %}
 
+{% block content %}
+<section class="card">
+    <h1>به وب‌سایت من خوش آمدید</h1>
     {% if user.is_authenticated %}
-        <h2>سلام {{ user.username }}</h2>
-        <p>شما وارد حساب کاربری شده‌اید.</p>
-        <a href="{% url 'profile' %}">مشاهده پروفایل</a>
-        |
-        <form method="POST" action="{% url 'logout' %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">خروج از حساب</button>
-        </form>
+        <h2>سلام {{ user.username }} عزیز</h2>
+        <p>شما وارد حساب کاربری خود شده‌اید.</p>
+        <div class="actions">
+            <a class="button" href="{% url 'profile' %}">مشاهده و ویرایش پروفایل</a>
+        </div>
     {% else %}
-        <p>برای استفاده از امکانات سایت وارد شوید.</p>
-        <a href="{% url 'register' %}">ثبت نام</a>
-        |
-        <a href="{% url 'login' %}">ورود</a>
+        <p>برای استفاده از امکانات سایت، وارد حساب خود شوید یا یک حساب جدید بسازید.</p>
+        <div class="actions">
+            <a class="button" href="{% url 'login' %}">ورود به حساب</a>
+            <a class="button button-secondary" href="{% url 'register' %}">ثبت‌نام</a>
+        </div>
     {% endif %}
-</body>
-</html>
+</section>
+{% endblock %}
