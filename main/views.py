@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from .forms import ProfileForm
 
 
 def home(request):
@@ -40,6 +41,15 @@ def logout_view(request):
     return redirect('home')
 
 
-@login_required
+@login_required(login_url='login')
 def profile_view(request):
-    return render(request, 'main/profile.html')
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'اطلاعات پروفایل با موفقیت ذخیره شد.')
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=request.user)
+
+    return render(request, 'main/profile.html', {'form': form})
