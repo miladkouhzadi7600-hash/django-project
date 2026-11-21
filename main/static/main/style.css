@@ -1,0 +1,161 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background: #f3f6fb;
+    color: #243247;
+    line-height: 1.9;
+}
+
+.site-header {
+    background: #173b67;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.brand {
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+nav a, .nav-button {
+    color: white;
+    text-decoration: none;
+    font: inherit;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+nav a:hover, .nav-button:hover {
+    color: #c9e2ff;
+}
+
+.container {
+    width: min(900px, 92%);
+    margin: 42px auto;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(20, 45, 75, 0.08);
+}
+
+h1, h2 {
+    color: #173b67;
+    margin-top: 0;
+}
+
+p {
+    margin: 12px 0;
+}
+
+.button, button {
+    display: inline-block;
+    border: 0;
+    border-radius: 9px;
+    padding: 10px 20px;
+    background: #1769aa;
+    color: white;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover, button:hover {
+    background: #105487;
+}
+
+.button-secondary {
+    background: #e8eef6;
+    color: #173b67;
+}
+
+.button-secondary:hover {
+    background: #d8e3f0;
+}
+
+form p {
+    margin-bottom: 18px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    max-width: 460px;
+    padding: 11px 12px;
+    margin-top: 6px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font: inherit;
+    background: #fff;
+}
+
+input:focus {
+    outline: 2px solid #8dc5f3;
+    border-color: #1769aa;
+}
+
+.helptext, ul.errorlist {
+    color: #68778b;
+    font-size: 13px;
+}
+
+ul.errorlist {
+    color: #b42318;
+}
+
+.message {
+    padding: 12px 16px;
+    margin: 12px 0 20px;
+    border-radius: 9px;
+    background: #e8f5ec;
+    color: #176b37;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.site-footer {
+    text-align: center;
+    color: #718096;
+    padding: 24px 12px;
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        padding: 16px 5%;
+    }
+
+    .container {
+        margin: 24px auto;
+    }
+
+    .card {
+        padding: 22px 18px;
+    }
+}
