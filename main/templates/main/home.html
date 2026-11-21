@@ -8,6 +8,12 @@
 <body>
     <h1>به سایت من خوش آمدید</h1>
 
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
     {% if user.is_authenticated %}
         <h2>سلام {{ user.username }}</h2>
         <p>شما وارد حساب کاربری شده‌اید.</p>
