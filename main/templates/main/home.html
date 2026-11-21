@@ -4,30 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحه اصلی</title>
-    <style>
-        body {
-            font-family: Tahoma, Arial, sans-serif;
-            background: #f2f5f9;
-            margin: 0;
-            padding: 50px 20px;
-            text-align: center;
-        }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 40px 25px;
-            background: white;
-            border-radius: 14px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-        }
-        h1 { color: #174a7e; }
-        p { color: #444; font-size: 18px; line-height: 2; }
-    </style>
 </head>
 <body>
-    <main class="container">
-        <h1>به پروژه جنگو خوش آمدید</h1>
-        <p>این اولین صفحه وب شما با استفاده از Django است.</p>
-    </main>
+    <h1>به سایت من خوش آمدید</h1>
+
+    {% if user.is_authenticated %}
+        <h2>سلام {{ user.username }}</h2>
+        <p>شما وارد حساب کاربری شده‌اید.</p>
+        <a href="{% url 'logout' %}">خروج از حساب</a>
+    {% else %}
+        <p>برای استفاده از امکانات سایت وارد شوید.</p>
+        <a href="{% url 'register' %}">ثبت نام</a>
+        |
+        <a href="{% url 'login' %}">ورود</a>
+    {% endif %}
 </body>
 </html>
