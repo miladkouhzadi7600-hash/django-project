@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل کاربر</title>
+</head>
+<body>
+    <h1>پروفایل کاربر</h1>
+    <p>نام کاربری: {{ user.username }}</p>
+    <p>تاریخ عضویت: {{ user.date_joined|date:"Y/m/d" }}</p>
+    <p>آخرین ورود: {{ user.last_login|date:"Y/m/d H:i" }}</p>
+    <a href="{% url 'home' %}">بازگشت به صفحه اصلی</a>
+    |
+    <a href="{% url 'logout' %}">خروج از حساب</a>
+</body>
+</html>
