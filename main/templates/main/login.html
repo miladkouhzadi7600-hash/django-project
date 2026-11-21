@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ورود کاربران</title>
+</head>
+<body>
+    <h1>ورود به حساب کاربری</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ورود</button>
+    </form>
+
+    <p>حساب ندارید؟ <a href="{% url 'register' %}">ثبت نام کنید</a></p>
+    <a href="/">بازگشت به صفحه اصلی</a>
+</body>
+</html>
