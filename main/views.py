@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from .forms import ProfileForm
@@ -38,6 +39,7 @@ def login_view(request):
     return render(request, 'main/login.html', {'form': form})
 
 
+@require_POST
 def logout_view(request):
     logout(request)
     messages.success(request, 'با موفقیت از حساب کاربری خارج شدید.')
