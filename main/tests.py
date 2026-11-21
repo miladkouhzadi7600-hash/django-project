@@ -77,3 +77,28 @@ class UserAccountTests(TestCase):
 
         self.assertRedirects(response, reverse('home'))
         self.assertNotIn('_auth_user_id', self.client.session)
+
+    def test_password_change_requires_login(self):
+        response = self.client.get(reverse('password_change'))
+        self.assertRedirects(
+            response,
+            f"{reverse('login')}?next={reverse('password_change')}"
+        )
+
+    def test_user_can_change_password_and_stay_logged_in(self):
+        user = User.objects.create_user(
+            username='testuser',
+            password='StrongPass123!xyz'
+        )
+        self.client.login(username='testuser', password='StrongPass123!xyz')
+
+        response = self.client.post(reverse('password_change'), {
+            'old_password': 'StrongPass123!xyz',
+            'new_password1': 'NewStrongPass456!xyz',
+            'new_password2': 'NewStrongPass456!xyz',
+        })
+
+        self.assertRedirects(response, reverse('profile'))
+        user.refresh_from_db()
+        self.assertTrue(user.check_password('NewStrongPass456!xyz'))
+        self.assertTrue('_auth_user_id' in self.client.session)
