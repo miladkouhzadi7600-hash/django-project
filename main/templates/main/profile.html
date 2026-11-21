@@ -1,35 +1,22 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پروفایل کاربر</title>
-</head>
-<body>
-    <h1>پروفایل کاربر</h1>
-    <p>نام کاربری: {{ user.username }}</p>
-    <p>تاریخ عضویت: {{ user.date_joined|date:"Y/m/d" }}</p>
-    <p>آخرین ورود: {{ user.last_login|date:"Y/m/d H:i" }}</p>
+{% extends 'main/base.html' %}
 
-    <h2>ویرایش اطلاعات</h2>
+{% block title %}پروفایل | وب‌سایت من{% endblock %}
 
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+{% block content %}
+<section class="card">
+    <h1>پروفایل کاربری</h1>
+    <p><strong>نام کاربری:</strong> {{ user.username }}</p>
+    <p><strong>تاریخ عضویت:</strong> {{ user.date_joined|date:"Y/m/d" }}</p>
+    <p><strong>آخرین ورود:</strong> {{ user.last_login|date:"Y/m/d H:i" }}</p>
 
+    <h2>ویرایش اطلاعات شخصی</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">ذخیره اطلاعات</button>
+        <button type="submit">ذخیره تغییرات</button>
     </form>
-
-    <a href="{% url 'home' %}">بازگشت به صفحه اصلی</a>
-    |
-    <form method="POST" action="{% url 'logout' %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">خروج از حساب</button>
-    </form>
-</body>
-</html>
+    <div class="actions">
+        <a class="button button-secondary" href="{% url 'home' %}">بازگشت به صفحه اصلی</a>
+    </div>
+</section>
+{% endblock %}
