@@ -23,3 +23,5 @@ jobs:
           pip install -r requirements.txt
       - name: Check Django project
         run: python manage.py check
+      - name: Run automated tests
+        run: python manage.py test
