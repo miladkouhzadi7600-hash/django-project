@@ -10,6 +10,21 @@
     <p>نام کاربری: {{ user.username }}</p>
     <p>تاریخ عضویت: {{ user.date_joined|date:"Y/m/d" }}</p>
     <p>آخرین ورود: {{ user.last_login|date:"Y/m/d H:i" }}</p>
+
+    <h2>ویرایش اطلاعات</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ذخیره اطلاعات</button>
+    </form>
+
     <a href="{% url 'home' %}">بازگشت به صفحه اصلی</a>
     |
     <a href="{% url 'logout' %}">خروج از حساب</a>
