@@ -51,3 +51,29 @@ class UserAccountTests(TestCase):
         self.assertEqual(user.first_name, 'Ali')
         self.assertEqual(user.last_name, 'Ahmadi')
         self.assertEqual(user.email, 'ali@example.com')
+
+    def test_logout_rejects_get_request(self):
+        user = User.objects.create_user(
+            username='testuser',
+            password='StrongPass123!xyz'
+        )
+        self.client.login(username='testuser', password='StrongPass123!xyz')
+
+        response = self.client.get(reverse('logout'))
+
+        self.assertEqual(response.status_code, 405)
+        self.assertTrue(
+            '_auth_user_id' in self.client.session
+        )
+
+    def test_user_can_log_out_with_post(self):
+        User.objects.create_user(
+            username='testuser',
+            password='StrongPass123!xyz'
+        )
+        self.client.login(username='testuser', password='StrongPass123!xyz')
+
+        response = self.client.post(reverse('logout'))
+
+        self.assertRedirects(response, reverse('home'))
+        self.assertNotIn('_auth_user_id', self.client.session)
